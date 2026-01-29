@@ -2,11 +2,12 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, Gamepad2, User } from 'lucide-react'
+import { Home, Gamepad2, User, BookOpen } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const navItems = [
-  { href: '/', label: 'Feed', icon: Home },
+  { href: '/', label: 'Home', icon: Home },
+  { href: '/feed', label: 'Feed', icon: BookOpen },
   { href: '/games', label: 'Games', icon: Gamepad2 },
   { href: '/profile', label: 'Profile', icon: User },
 ]
@@ -25,7 +26,7 @@ export function Navigation() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  'relative flex flex-col items-center gap-1 rounded-xl px-6 py-2 text-xs font-medium transition-all duration-300',
+                  'relative flex flex-col items-center gap-1 rounded-xl px-4 py-2 text-xs font-medium transition-all duration-300',
                   isActive
                     ? 'text-primary'
                     : 'text-muted-foreground hover:text-foreground'
