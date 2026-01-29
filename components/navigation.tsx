@@ -15,26 +15,34 @@ export function Navigation() {
   const pathname = usePathname()
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
-      <div className="mx-auto flex h-16 max-w-md items-center justify-around px-4">
-        {navItems.map((item) => {
-          const isActive = pathname === item.href
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                'flex flex-col items-center gap-1 rounded-lg px-4 py-2 text-xs font-medium transition-colors',
-                isActive
-                  ? 'text-primary'
-                  : 'text-muted-foreground hover:text-foreground'
-              )}
-            >
-              <item.icon className={cn('h-5 w-5', isActive && 'stroke-[2.5px]')} />
-              <span>{item.label}</span>
-            </Link>
-          )
-        })}
+    <nav className="fixed bottom-4 left-4 right-4 z-50 mx-auto max-w-md">
+      <div className="glass glow-border rounded-2xl px-2 py-3">
+        <div className="flex items-center justify-around">
+          {navItems.map((item) => {
+            const isActive = pathname === item.href
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  'relative flex flex-col items-center gap-1 rounded-xl px-6 py-2 text-xs font-medium transition-all duration-300',
+                  isActive
+                    ? 'text-primary'
+                    : 'text-muted-foreground hover:text-foreground'
+                )}
+              >
+                {isActive && (
+                  <span className="absolute inset-0 rounded-xl bg-primary/10 glow-subtle" />
+                )}
+                <item.icon className={cn(
+                  'relative h-5 w-5 transition-transform duration-300',
+                  isActive && 'stroke-[2.5px] scale-110'
+                )} />
+                <span className="relative">{item.label}</span>
+              </Link>
+            )
+          })}
+        </div>
       </div>
     </nav>
   )

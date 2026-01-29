@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { StatsCard } from '@/components/profile/stats-card'
 import { Badge } from '@/components/ui/badge'
 import { Gamepad2, Trophy, Clock, Star, Calendar } from 'lucide-react'
@@ -32,31 +31,31 @@ export default function ProfilePage() {
   }, [])
 
   return (
-    <div className="container mx-auto px-4 py-6">
-      <header className="mb-6">
-        <h1 className="text-2xl font-bold tracking-tight">Profile</h1>
-        <p className="text-muted-foreground">
+    <div className="container mx-auto px-4 py-8">
+      <header className="mb-8">
+        <h1 className="text-3xl font-bold tracking-tight gradient-text">Profile</h1>
+        <p className="text-muted-foreground mt-1">
           Track your learning progress
         </p>
       </header>
 
       {/* Profile Header */}
-      <Card className="mb-6">
-        <CardContent className="flex items-center gap-4 pt-6">
-          <Avatar className="h-16 w-16">
+      <div className="glass glow-border mb-6 rounded-2xl p-6">
+        <div className="flex items-center gap-4">
+          <Avatar className="h-16 w-16 ring-2 ring-primary/50 ring-offset-2 ring-offset-background">
             <AvatarImage src="" alt="Profile" />
-            <AvatarFallback className="bg-primary text-primary-foreground text-xl">
+            <AvatarFallback className="bg-primary text-primary-foreground text-xl font-bold">
               O
             </AvatarFallback>
           </Avatar>
           <div>
-            <h2 className="text-xl font-semibold">Learner</h2>
+            <h2 className="text-xl font-semibold text-foreground">Learner</h2>
             <p className="text-sm text-muted-foreground">
               Device ID: {deviceId.slice(0, 8)}...
             </p>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Stats Grid */}
       <div className="mb-6 grid gap-4 grid-cols-2">
@@ -70,33 +69,35 @@ export default function ProfilePage() {
           title="Total Score"
           value={stats.totalScore}
           icon={Trophy}
-          iconColor="text-amber-500"
+          iconColor="text-amber-400"
         />
         <StatsCard
           title="Time Spent"
           value={stats.timeSpent}
           icon={Clock}
-          iconColor="text-emerald-500"
+          iconColor="text-emerald-400"
         />
         <StatsCard
           title="Day Streak"
           value={stats.streak}
           icon={Star}
-          iconColor="text-orange-500"
+          iconColor="text-primary"
         />
       </div>
 
       {/* Game History */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">Recent Activity</CardTitle>
-          <CardDescription>Your game history and achievements</CardDescription>
-        </CardHeader>
-        <CardContent>
+      <div className="glass glow-border rounded-2xl overflow-hidden">
+        <div className="p-4 border-b border-border/50">
+          <h3 className="text-lg font-semibold text-foreground">Recent Activity</h3>
+          <p className="text-sm text-muted-foreground">Your game history and achievements</p>
+        </div>
+        <div className="p-4">
           {gameHistory.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-8 text-center">
-              <Calendar className="mb-2 h-12 w-12 text-muted-foreground/50" />
-              <p className="text-muted-foreground">No games played yet</p>
+              <div className="glass-subtle rounded-full p-4 mb-3">
+                <Calendar className="h-8 w-8 text-muted-foreground" />
+              </div>
+              <p className="text-foreground font-medium">No games played yet</p>
               <p className="text-sm text-muted-foreground">
                 Start playing to track your progress!
               </p>
@@ -106,23 +107,23 @@ export default function ProfilePage() {
               {gameHistory.map((entry) => (
                 <div
                   key={entry.id}
-                  className="flex items-center justify-between rounded-lg border p-3"
+                  className="flex items-center justify-between rounded-xl glass-subtle p-4"
                 >
                   <div>
-                    <p className="font-medium">{entry.gameName}</p>
+                    <p className="font-medium text-foreground">{entry.gameName}</p>
                     <p className="text-sm text-muted-foreground">
                       {new Date(entry.completedAt).toLocaleDateString()}
                     </p>
                   </div>
-                  <Badge variant="secondary">
+                  <Badge className="bg-primary/20 text-primary border-primary/30">
                     {entry.score} pts
                   </Badge>
                 </div>
               ))}
             </div>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   )
 }

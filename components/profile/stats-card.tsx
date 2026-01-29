@@ -1,6 +1,5 @@
 'use client'
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import type { LucideIcon } from 'lucide-react'
 
@@ -14,19 +13,19 @@ interface StatsCardProps {
 
 export function StatsCard({ title, value, description, icon: Icon, iconColor = 'text-primary' }: StatsCardProps) {
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between pb-2">
-        <CardTitle className="text-sm font-medium text-muted-foreground">
+    <div className="glass glow-border rounded-2xl p-4 transition-all duration-300 hover:glow-subtle">
+      <div className="flex items-center justify-between mb-2">
+        <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
           {title}
-        </CardTitle>
-        <Icon className={cn('h-4 w-4', iconColor)} />
-      </CardHeader>
-      <CardContent>
-        <div className="text-2xl font-bold">{value}</div>
-        {description && (
-          <p className="text-xs text-muted-foreground">{description}</p>
-        )}
-      </CardContent>
-    </Card>
+        </span>
+        <div className={cn('p-1.5 rounded-lg glass-subtle', iconColor)}>
+          <Icon className="h-4 w-4" />
+        </div>
+      </div>
+      <div className="text-2xl font-bold text-foreground">{value}</div>
+      {description && (
+        <p className="text-xs text-muted-foreground mt-1">{description}</p>
+      )}
+    </div>
   )
 }

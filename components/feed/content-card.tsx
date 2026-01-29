@@ -1,7 +1,6 @@
 'use client'
 
 import Image from 'next/image'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { ExternalLink, Play } from 'lucide-react'
@@ -15,18 +14,18 @@ export function ContentCard({ content }: ContentCardProps) {
   const isVideo = content.media_type === 'video'
 
   return (
-    <Card className="overflow-hidden transition-shadow hover:shadow-lg">
-      <div className="relative aspect-video w-full overflow-hidden bg-muted">
+    <div className="glass glow-border group overflow-hidden rounded-2xl transition-all duration-300 hover:glow-subtle">
+      <div className="relative aspect-video w-full overflow-hidden">
         {isVideo ? (
           <div className="relative h-full w-full">
             <Image
               src={content.media_url}
               alt={content.title}
               fill
-              className="object-cover"
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
-            <div className="absolute inset-0 flex items-center justify-center bg-black/30">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/90 text-primary-foreground">
+            <div className="absolute inset-0 flex items-center justify-center bg-black/40 transition-colors group-hover:bg-black/30">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary glow-orange text-primary-foreground transition-transform duration-300 group-hover:scale-110">
                 <Play className="h-6 w-6 ml-1" />
               </div>
             </div>
@@ -36,28 +35,28 @@ export function ContentCard({ content }: ContentCardProps) {
             src={content.media_url}
             alt={content.title}
             fill
-            className="object-cover"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
         )}
         <Badge
           variant="secondary"
-          className="absolute right-2 top-2 capitalize"
+          className="absolute right-3 top-3 capitalize glass-subtle border-0"
         >
           {content.media_type}
         </Badge>
       </div>
-      <CardHeader className="pb-2">
-        <CardTitle className="line-clamp-2 text-lg">{content.title}</CardTitle>
-        <CardDescription className="line-clamp-2">
+      <div className="p-4">
+        <h3 className="mb-1 line-clamp-2 text-lg font-semibold text-foreground">
+          {content.title}
+        </h3>
+        <p className="mb-3 line-clamp-2 text-sm text-muted-foreground">
           {content.description}
-        </CardDescription>
-      </CardHeader>
-      {content.external_link && (
-        <CardContent className="pt-0">
+        </p>
+        {content.external_link && (
           <Button
             variant="outline"
             size="sm"
-            className="w-full"
+            className="w-full border-primary/30 bg-primary/10 text-primary hover:bg-primary/20 hover:border-primary/50 transition-all"
             asChild
           >
             <a
@@ -69,8 +68,8 @@ export function ContentCard({ content }: ContentCardProps) {
               <ExternalLink className="ml-2 h-4 w-4" />
             </a>
           </Button>
-        </CardContent>
-      )}
-    </Card>
+        )}
+      </div>
+    </div>
   )
 }

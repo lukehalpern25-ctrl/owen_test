@@ -26,9 +26,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
-        <main className="min-h-screen pb-20">
+        {/* Floating orbs for liquid glass effect */}
+        <div className="orb orb-1" aria-hidden="true" />
+        <div className="orb orb-2" aria-hidden="true" />
+        <div className="orb orb-3" aria-hidden="true" />
+
+        <main className="relative min-h-screen pb-24">
           {children}
         </main>
         <Navigation />

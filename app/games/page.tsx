@@ -55,15 +55,15 @@ const placeholderGames: Game[] = [
 
 export default function GamesPage() {
   return (
-    <div className="container mx-auto px-4 py-6">
-      <header className="mb-6">
-        <h1 className="text-2xl font-bold tracking-tight">Games</h1>
-        <p className="text-muted-foreground">
+    <div className="container mx-auto px-4 py-8">
+      <header className="mb-8">
+        <h1 className="text-3xl font-bold tracking-tight gradient-text">Games</h1>
+        <p className="text-muted-foreground mt-1">
           Learn while having fun with educational games
         </p>
       </header>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {placeholderGames.map((game) => (
           <GameCard key={game.id} game={game} isAvailable={false} />
         ))}

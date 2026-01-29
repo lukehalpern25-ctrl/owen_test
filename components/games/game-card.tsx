@@ -1,7 +1,6 @@
 'use client'
 
 import Image from 'next/image'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Lock, Play } from 'lucide-react'
@@ -14,62 +13,68 @@ interface GameCardProps {
 }
 
 const difficultyColors = {
-  easy: 'bg-emerald-100 text-emerald-700',
-  medium: 'bg-amber-100 text-amber-700',
-  hard: 'bg-rose-100 text-rose-700',
+  easy: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30',
+  medium: 'bg-amber-500/20 text-amber-400 border-amber-500/30',
+  hard: 'bg-rose-500/20 text-rose-400 border-rose-500/30',
 }
 
 export function GameCard({ game, isAvailable = false }: GameCardProps) {
   return (
-    <Card className={cn(
-      'overflow-hidden transition-all',
-      isAvailable ? 'hover:shadow-lg cursor-pointer' : 'opacity-75'
+    <div className={cn(
+      'glass glow-border group overflow-hidden rounded-2xl transition-all duration-300',
+      isAvailable ? 'hover:glow-subtle cursor-pointer' : 'opacity-80'
     )}>
-      <div className="relative aspect-video w-full overflow-hidden bg-muted">
+      <div className="relative aspect-video w-full overflow-hidden">
         <Image
           src={game.thumbnail_url}
           alt={game.name}
           fill
-          className={cn('object-cover', !isAvailable && 'grayscale')}
+          className={cn(
+            'object-cover transition-transform duration-500',
+            isAvailable && 'group-hover:scale-105',
+            !isAvailable && 'grayscale brightness-75'
+          )}
         />
         {!isAvailable && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-            <div className="flex flex-col items-center gap-2 text-white">
-              <Lock className="h-8 w-8" />
+          <div className="absolute inset-0 flex items-center justify-center bg-black/60">
+            <div className="glass-subtle flex flex-col items-center gap-2 rounded-xl px-6 py-4 text-foreground">
+              <Lock className="h-8 w-8 text-primary" />
               <span className="text-sm font-medium">Coming Soon</span>
             </div>
           </div>
         )}
       </div>
-      <CardHeader className="pb-2">
-        <div className="flex items-start justify-between gap-2">
-          <CardTitle className="line-clamp-1 text-lg">{game.name}</CardTitle>
+      <div className="p-4">
+        <div className="mb-2 flex items-start justify-between gap-2">
+          <h3 className="line-clamp-1 text-lg font-semibold text-foreground">{game.name}</h3>
           <Badge
-            variant="secondary"
-            className={cn('capitalize shrink-0', difficultyColors[game.difficulty])}
+            variant="outline"
+            className={cn('capitalize shrink-0 border', difficultyColors[game.difficulty])}
           >
             {game.difficulty}
           </Badge>
         </div>
-        <CardDescription className="line-clamp-2">
+        <p className="mb-4 line-clamp-2 text-sm text-muted-foreground">
           {game.description}
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="pt-0">
+        </p>
         <div className="flex items-center justify-between">
-          <Badge variant="outline" className="capitalize">
+          <Badge variant="outline" className="capitalize border-border/50 text-muted-foreground">
             {game.category}
           </Badge>
           <Button
             size="sm"
             disabled={!isAvailable}
-            className={cn(!isAvailable && 'opacity-50')}
+            className={cn(
+              'bg-primary text-primary-foreground hover:bg-primary/90 transition-all',
+              isAvailable && 'glow-subtle hover:glow-orange',
+              !isAvailable && 'opacity-50'
+            )}
           >
             <Play className="mr-1 h-4 w-4" />
             Play
           </Button>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   )
 }
